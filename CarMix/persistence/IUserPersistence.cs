@@ -11,6 +11,8 @@ namespace CarMix.persistence
     {
         List<User> Users();
 
+        User User(int id);
+
         string AddUser(User user);
 
         string DeleteUser(int id);
@@ -18,5 +20,7 @@ namespace CarMix.persistence
         string EditUser(int id,string name, string password, string gustosMusicales);
 
         string ChangePassword(int id,string newPassword);
+
+        List<UserActivity> ActivityUsers();
     }
 }

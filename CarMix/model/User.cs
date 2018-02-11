@@ -10,5 +10,7 @@ namespace CarMix.model
         public string Name { set; get; }
         public string Password { set; get; }
         public string GeneroMusical { set; get; }
+        public List<Viaje> ViajesCreados { set; get; }
+        public List<Viaje> ViajesSuscrito { set; get; }
     }
 }

@@ -78,16 +78,27 @@
   <ItemGroup>
     <Content Include="Web.config" />
     <Content Include="WebService.User.asmx" />
+    <Content Include="WebService.Viaje.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="data\DBConect.cs" />
     <Compile Include="model\User.cs" />
+    <Compile Include="model\UserActivity.cs" />
+    <Compile Include="model\Viaje.cs" />
     <Compile Include="persistence\impl\UserPersistence.cs" />
+    <Compile Include="persistence\impl\UserViajePersistence.cs" />
+    <Compile Include="persistence\impl\ViajePersistence.cs" />
     <Compile Include="persistence\IUserPersistence.cs" />
+    <Compile Include="persistence\IUserViajePersistence.cs" />
+    <Compile Include="persistence\IViajePersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="security\Security.cs" />
     <Compile Include="WebService.User.asmx.cs">
       <DependentUpon>WebService.User.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebService.Viaje.asmx.cs">
+      <DependentUpon>WebService.Viaje.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

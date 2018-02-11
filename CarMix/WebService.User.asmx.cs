@@ -11,14 +11,14 @@ using System.Xml.Serialization;
 
 namespace CarMix
 {
-     [WebService(Namespace = "http://carmix.admin/")]
+     [WebService(Namespace = "http://carmix.user.admin/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
      public class WebService_User : System.Web.Services.WebService
     {
 
         public Security Security { set; get; }
-
+        UserPersistence db = new UserPersistence();
 
         public bool Check()
         {
@@ -34,9 +34,9 @@ namespace CarMix
         public List<User> Users()
         {
             List<User> users = new List<User>();
-            if (Security != null && Security.UserName.Equals("admin"))
+            if (Check())
             {
-                UserPersistence db = new UserPersistence();
+               
                  users = db.Users();
                 return users;
             }
@@ -50,7 +50,7 @@ namespace CarMix
            
             if (Check())
             {
-                UserPersistence db = new UserPersistence();
+              
                 User user = new User();
                 user.Name = name;
                 user.Password = password;
@@ -67,7 +67,7 @@ namespace CarMix
 
             if (Check())
             {
-                UserPersistence db = new UserPersistence();
+                
 
                 return db.DeleteUser(id);
             }
@@ -81,7 +81,7 @@ namespace CarMix
 
             if (Check())
             {
-                UserPersistence db = new UserPersistence();
+                
 
                 return db.ChangePassword(id,password);
             }
@@ -95,11 +95,40 @@ namespace CarMix
 
             if (Check())
             {
-                UserPersistence db = new UserPersistence();
+               
 
                 return db.EditUser(id,name, password, gustosMusicales);
             }
             return "No tienes permisos de administrador";
+        }
+
+
+        [WebMethod]
+        [SoapHeader("Security", Direction = SoapHeaderDirection.In)]
+        public User FindUser(int id)
+        {
+
+            if (Check())
+            {
+               
+
+                return db.User(id);
+            }
+            return new User();
+        }
+
+        [WebMethod]
+        [SoapHeader("Security", Direction = SoapHeaderDirection.In)]
+        public List<UserActivity> UsersActivity()
+        {
+            List<UserActivity> users = new List<UserActivity>();
+            if (Check())
+            {
+
+                users = db.ActivityUsers();
+                return users;
+            }
+            return users;
         }
 
     }
