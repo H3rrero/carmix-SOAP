@@ -11,13 +11,17 @@ namespace CarMix.persistence
     {
         List<Viaje> Viajes();
 
-        Viaje FindViaje(int id);
+        Viaje FindViaje(long id);
 
         string AddViaje(Viaje viaje);
 
-        string DeleteViaje(int id);
+        string DeleteViaje(long id);
 
-        string EditViaje(int id, string origen, string destino, int plazas, decimal precio, string descripcion);
+        string EditViaje(long id, string origen, string destino, int plazas, decimal precio, string descripcion);
+
+        List<string> OrigenesPopulares();
+
+        List<string> DestinosPopulares();
 
     }
 }

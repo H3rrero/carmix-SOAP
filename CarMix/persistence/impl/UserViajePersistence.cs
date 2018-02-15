@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CarMix.data;
+using CarMix.excepciones;
 using CarMix.model;
 using MySql.Data.MySqlClient;
 
@@ -26,6 +27,7 @@ namespace CarMix.persistence.impl
                 while (rdr.Read())
                 {
                     User user = new User();
+                    user.Id = (long)rdr[0];
                     user.Name = (string)rdr[1];
                     user.Password = (string)rdr[2];
                     user.GeneroMusical = (string)rdr[3];
@@ -33,16 +35,16 @@ namespace CarMix.persistence.impl
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.ToString());
+                throw new GenericException();
             }
 
             conn.Close();
             return salida;
         }
 
-        public bool DeleteUserViaje(int idViaje)
+        public bool DeleteUserViaje(long idViaje)
         {
             MySqlConnection conn = DBConect.Conect();
             try
@@ -54,9 +56,30 @@ namespace CarMix.persistence.impl
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return false;
+                throw new GenericException();
+            }
+
+            conn.Close();
+            return true;
+        }
+
+        public bool DeleteUserViajeByUser(long idUser)
+        {
+            MySqlConnection conn = DBConect.Conect();
+            try
+            {
+
+                conn.Open();
+
+                string sql = "DELETE FROM user_viaje WHERE FK_user_id =" + idUser;
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
             }
 
             conn.Close();
@@ -79,6 +102,7 @@ namespace CarMix.persistence.impl
                 while (rdr.Read())
                 {
                     User user = new User();
+                    user.Id = (long)rdr[0];
                     user.Name = (string)rdr[1];
                     user.Password = (string)rdr[2];
                     user.GeneroMusical = (string)rdr[3];
@@ -86,9 +110,9 @@ namespace CarMix.persistence.impl
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.ToString());
+                throw new GenericException();
             }
 
             conn.Close();
@@ -111,6 +135,7 @@ namespace CarMix.persistence.impl
                 while (rdr.Read())
                 {
                     Viaje viaje = new Viaje();
+                    viaje.Id = (long)rdr[0];
                     viaje.Origen = (string)rdr[1];
                     viaje.Destino = (string)rdr[2];
                     viaje.Plazas = (int)rdr[3];
@@ -120,9 +145,9 @@ namespace CarMix.persistence.impl
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.ToString());
+                throw new GenericException();
             }
 
             conn.Close();
@@ -145,6 +170,7 @@ namespace CarMix.persistence.impl
                 while (rdr.Read())
                 {
                     Viaje viaje = new Viaje();
+                    viaje.Id = (long)rdr[0];
                     viaje.Origen = (string)rdr[1];
                     viaje.Destino = (string)rdr[2];
                     viaje.Plazas = (int)rdr[3];
@@ -154,9 +180,9 @@ namespace CarMix.persistence.impl
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.ToString());
+                throw new GenericException();
             }
 
             conn.Close();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CarMix.data;
+using CarMix.excepciones;
 using CarMix.model;
 using MySql.Data.MySqlClient;
 
@@ -24,23 +25,23 @@ namespace CarMix.persistence.impl
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return ex.ToString();
+                throw new GenericException();
             }
 
             conn.Close();
             return "viaje añadido con exito";
         }
 
-        public string DeleteViaje(int id)
+        public string DeleteViaje(long id)
         {
             MySqlConnection conn = DBConect.Conect();
             try
             {
 
                 conn.Open();
-
+                FindViaje(id);
                 string sql = "DELETE FROM viaje WHERE id =" + id;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 if (db.DeleteUserViaje(id))
@@ -51,40 +52,77 @@ namespace CarMix.persistence.impl
                     return "no se pudo eliminar el viaje";
                 }
             }
-            catch (Exception ex)
+            catch (FindException)
             {
-                return ex.ToString();
+                throw new FindException();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
             }
 
             conn.Close();
             return "viaje eliminado con exito";
         }
 
-        public string EditViaje(int id, string origen, string destino, int plazas, decimal precio, string descripcion)
+        public List<string> DestinosPopulares()
+        {
+            MySqlConnection conn = DBConect.Conect();
+            List<string> salida = new List<string>();
+            try
+            {
+
+                conn.Open();
+
+                string sql = "SELECT destino, COUNT(destino) FROM viaje GROUP BY destino ORDER BY COUNT(destino) DESC";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+
+                    salida.Add((string)rdr[0]);
+                }
+                rdr.Close();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
+            }
+
+            conn.Close();
+            return salida;
+        }
+
+        public string EditViaje(long id, string origen, string destino, int plazas, decimal precio, string descripcion)
         {
             MySqlConnection conn = DBConect.Conect();
             try
             {
 
                 conn.Open();
-
+                FindViaje(id);
                 string sql = "UPDATE viaje SET origen='" + origen + "',destino='" + destino + "', plazas='" + plazas + "', precio='" + precio + "', descripcion='" + descripcion + "' WHERE id =" + id;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (FindException)
             {
-                return ex.ToString();
+                throw new FindException();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
             }
 
             conn.Close();
             return "viaje actualizado con exito";
         }
 
-        public Viaje FindViaje(int id)
+        public Viaje FindViaje(long id)
         {
             MySqlConnection conn = DBConect.Conect();
-            Viaje salida = new Viaje();
+            Viaje salida = null;
             try
             {
 
@@ -97,6 +135,7 @@ namespace CarMix.persistence.impl
                 while (rdr.Read())
                 {
                     Viaje viaje = new Viaje();
+                    viaje.Id = (long)rdr[0];
                     viaje.Origen = (string)rdr[1];
                     viaje.Destino = (string)rdr[2];
                     viaje.Plazas = (int)rdr[3];
@@ -107,10 +146,45 @@ namespace CarMix.persistence.impl
                     salida = viaje;
                 }
                 rdr.Close();
+                if (salida == null)
+                    throw new FindException();
             }
-            catch (Exception ex)
+            catch (FindException)
             {
-                Console.WriteLine(ex.ToString());
+                throw new FindException();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
+            }
+
+            conn.Close();
+            return salida;
+        }
+
+        public List<string> OrigenesPopulares()
+        {
+            MySqlConnection conn = DBConect.Conect();
+            List<string> salida = new List<string>();
+            try
+            {
+
+                conn.Open();
+
+                string sql = "SELECT origen, COUNT(origen) FROM viaje GROUP BY origen ORDER BY COUNT(origen) DESC";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                   
+                    salida.Add((string)rdr[0]);
+                }
+                rdr.Close();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
             }
 
             conn.Close();
@@ -133,6 +207,7 @@ namespace CarMix.persistence.impl
                 while (rdr.Read())
                 {
                     Viaje viaje = new Viaje();
+                    viaje.Id = (long)rdr[0];
                     viaje.Origen = (string)rdr[1];
                     viaje.Destino = (string)rdr[2];
                     viaje.Plazas = (int)rdr[3];
@@ -144,9 +219,9 @@ namespace CarMix.persistence.impl
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.ToString());
+                throw new GenericException();
             }
 
             conn.Close();

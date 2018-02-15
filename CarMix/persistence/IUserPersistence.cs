@@ -11,16 +11,20 @@ namespace CarMix.persistence
     {
         List<User> Users();
 
-        User User(int id);
+        User User(long id);
 
         string AddUser(User user);
 
-        string DeleteUser(int id);
+        string DeleteUser(long id);
 
-        string EditUser(int id,string name, string password, string gustosMusicales);
+        string EditUser(long id,string name, string password, string gustosMusicales);
 
-        string ChangePassword(int id,string newPassword);
+        string ChangePassword(long id,string newPassword);
 
         List<UserActivity> ActivityUsers();
+
+        string DeleteInvitado(long id);
+
+        string DeleteUserViajes(long id);
     }
 }

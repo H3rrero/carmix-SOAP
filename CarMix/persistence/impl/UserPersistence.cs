@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CarMix.data;
+using CarMix.excepciones;
 using CarMix.model;
 using MySql.Data.MySqlClient;
 
@@ -11,6 +12,7 @@ namespace CarMix.persistence.impl
     public class UserPersistence : IUserPersistence
     {
         IUserViajePersistence db = new UserViajePersistence();
+        IViajePersistence dbViaje = new ViajePersistence();
 
         public List<UserActivity> ActivityUsers()
         {
@@ -34,9 +36,9 @@ namespace CarMix.persistence.impl
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.ToString());
+                throw new GenericException();
             }
 
             conn.Close();
@@ -55,82 +57,151 @@ namespace CarMix.persistence.impl
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return ex.ToString();
+                throw new GenericException();
             }
 
             conn.Close();
             return "usuario añadido con exito";
         }
 
-        public string ChangePassword(int id,string newPassword)
+        public string ChangePassword(long id,string newPassword)
         {
           MySqlConnection conn = DBConect.Conect();
             try
             {
 
                 conn.Open();
-
+                User(id);
                 string sql = "UPDATE user SET password= '"+newPassword+"' WHERE id ="+id;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (FindException)
             {
-                return ex.ToString();
+                throw new FindException();
             }
+            catch (Exception)
+            {
+                throw new GenericException();
+            }
+           
 
             conn.Close();
             return "contraseña actualizada con exito";
         }
 
-        public string DeleteUser(int id)
+        public string DeleteInvitado(long id)
         {
             MySqlConnection conn = DBConect.Conect();
             try
             {
 
                 conn.Open();
-
-                string sql = "DELETE FROM `user` WHERE id ="+id;
+                User(id);
+                string sql = "DELETE FROM `user_viaje` WHERE role='invitado' AND FK_user_id = " + id;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (FindException)
             {
-                return ex.ToString();
+                throw new FindException();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
+            }
+
+            conn.Close();
+            return "Invitado eliminado con exito";
+        }
+
+        public string DeleteUser(long id)
+        {
+            MySqlConnection conn = DBConect.Conect();
+            try
+            {
+                User user = User(id);
+                conn.Open();
+                User(id);
+                string sql = "DELETE FROM `user` WHERE id ="+id;
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+                if (db.DeleteUserViajeByUser(id))
+                {
+                    user.ViajesCreados.ForEach(x => dbViaje.DeleteViaje(x.Id));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (FindException)
+            {
+                throw new FindException();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
+            }
+
+            conn.Close();
+            return "usuario eliminado con exito";
+        }
+       
+        public string DeleteUserViajes(long id)
+        {
+
+            MySqlConnection conn = DBConect.Conect();
+            try
+            {
+
+                conn.Open();
+                User(id);
+                string sql = "DELETE FROM user_viaje WHERE FK_user_id =" + id;
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch (FindException)
+            {
+                throw new FindException();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
             }
 
             conn.Close();
             return "usuario eliminado con exito";
         }
 
-        public string EditUser(int id,string name, string password, string gustosMusicales)
+        public string EditUser(long id,string name, string password, string gustosMusicales)
         {
             MySqlConnection conn = DBConect.Conect();
             try
             {
 
                 conn.Open();
-
+                User(id);
                 string sql = "UPDATE user SET user='"+name+"',generomusical='"+gustosMusicales+"', password='" + password + "' WHERE id =" + id;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (FindException)
             {
-                return ex.ToString();
+                throw new FindException();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
             }
 
             conn.Close();
             return "usuario actualizado con exito";
         }
 
-        public User User(int id)
+        public User User(long id)
         {
             MySqlConnection conn = DBConect.Conect();
-            User salida = new User();
+            User salida = null;
             try
             {
 
@@ -143,6 +214,7 @@ namespace CarMix.persistence.impl
                 while (rdr.Read())
                 {
                     User user = new User();
+                    user.Id = (long)rdr[0];
                     user.Name = (string)rdr[1];
                     user.Password = (string)rdr[2];
                     user.GeneroMusical = (string)rdr[3];
@@ -151,10 +223,16 @@ namespace CarMix.persistence.impl
                     salida = user;
                 }
                 rdr.Close();
+                if (salida == null)
+                    throw new FindException();
             }
-            catch (Exception ex)
+            catch (FindException)
             {
-                Console.WriteLine(ex.ToString());
+                throw new FindException();
+            }
+            catch (Exception)
+            {
+                throw new GenericException();
             }
 
             conn.Close();
@@ -177,6 +255,7 @@ namespace CarMix.persistence.impl
                 while (rdr.Read())
                 {
                     User user = new User();
+                    user.Id = (long)rdr[0];
                     user.Name = (string)rdr[1];
                     user.Password = (string)rdr[2];
                     user.GeneroMusical = (string)rdr[3];
@@ -186,9 +265,9 @@ namespace CarMix.persistence.impl
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.ToString());
+                throw new GenericException();
             }
 
             conn.Close();

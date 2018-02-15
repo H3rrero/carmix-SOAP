@@ -13,6 +13,7 @@ namespace CarMix.persistence
         List<Viaje> ViajesSuscrito(long idUser);
         User CreadorViaje(long idViaje);
         List<User> InvitadosViaje(long idViaje);
-        bool DeleteUserViaje(int idViaje);
+        bool DeleteUserViaje(long idViaje);
+        bool DeleteUserViajeByUser(long idUser);
     }
 }

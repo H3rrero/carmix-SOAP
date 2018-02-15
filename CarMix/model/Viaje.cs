@@ -7,6 +7,7 @@ namespace CarMix.model
 {
     public class Viaje
     {
+        public long Id { set; get; }
         public string Origen { set; get; }
         public string Destino { set; get; }
         public int Plazas { set; get; }
