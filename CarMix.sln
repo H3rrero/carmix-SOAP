@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarMix", "CarMix\CarMix.csproj", "{8E2470DE-7716-4081-86A6-AD1EEB50B75D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarMix.Client", "CarMix.Client\CarMix.Client.csproj", "{572A0D62-7C5C-431F-91AD-46E252C57D4E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8E2470DE-7716-4081-86A6-AD1EEB50B75D} = {8E2470DE-7716-4081-86A6-AD1EEB50B75D}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{8E2470DE-7716-4081-86A6-AD1EEB50B75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E2470DE-7716-4081-86A6-AD1EEB50B75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E2470DE-7716-4081-86A6-AD1EEB50B75D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{572A0D62-7C5C-431F-91AD-46E252C57D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{572A0D62-7C5C-431F-91AD-46E252C57D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{572A0D62-7C5C-431F-91AD-46E252C57D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{572A0D62-7C5C-431F-91AD-46E252C57D4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
