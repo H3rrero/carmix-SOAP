@@ -304,6 +304,8 @@ namespace CarMix.Client.CarMixViajeService {
         
         private User creadorField;
         
+        private string listaField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public long Id {
@@ -400,6 +402,18 @@ namespace CarMix.Client.CarMixViajeService {
             }
         }
         
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public string Lista {
+            get {
+                return this.listaField;
+            }
+            set {
+                this.listaField = value;
+                this.RaisePropertyChanged("Lista");
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -454,25 +468,29 @@ namespace CarMix.Client.CarMixViajeService {
         public CarMix.Client.CarMixViajeService.Security Security;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://carmix.viaje.admin/", Order=0)]
-        public string origen;
+        public long idCreador;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://carmix.viaje.admin/", Order=1)]
-        public string destino;
+        public string origen;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://carmix.viaje.admin/", Order=2)]
-        public int plazas;
+        public string destino;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://carmix.viaje.admin/", Order=3)]
-        public decimal precio;
+        public int plazas;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://carmix.viaje.admin/", Order=4)]
+        public decimal precio;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://carmix.viaje.admin/", Order=5)]
         public string descripcion;
         
         public AddViajeRequest() {
         }
         
-        public AddViajeRequest(CarMix.Client.CarMixViajeService.Security Security, string origen, string destino, int plazas, decimal precio, string descripcion) {
+        public AddViajeRequest(CarMix.Client.CarMixViajeService.Security Security, long idCreador, string origen, string destino, int plazas, decimal precio, string descripcion) {
             this.Security = Security;
+            this.idCreador = idCreador;
             this.origen = origen;
             this.destino = destino;
             this.plazas = plazas;
@@ -755,9 +773,10 @@ namespace CarMix.Client.CarMixViajeService {
             return base.Channel.AddViaje(request);
         }
         
-        public string AddViaje(CarMix.Client.CarMixViajeService.Security Security, string origen, string destino, int plazas, decimal precio, string descripcion) {
+        public string AddViaje(CarMix.Client.CarMixViajeService.Security Security, long idCreador, string origen, string destino, int plazas, decimal precio, string descripcion) {
             CarMix.Client.CarMixViajeService.AddViajeRequest inValue = new CarMix.Client.CarMixViajeService.AddViajeRequest();
             inValue.Security = Security;
+            inValue.idCreador = idCreador;
             inValue.origen = origen;
             inValue.destino = destino;
             inValue.plazas = plazas;
@@ -772,9 +791,10 @@ namespace CarMix.Client.CarMixViajeService {
             return base.Channel.AddViajeAsync(request);
         }
         
-        public System.Threading.Tasks.Task<CarMix.Client.CarMixViajeService.AddViajeResponse> AddViajeAsync(CarMix.Client.CarMixViajeService.Security Security, string origen, string destino, int plazas, decimal precio, string descripcion) {
+        public System.Threading.Tasks.Task<CarMix.Client.CarMixViajeService.AddViajeResponse> AddViajeAsync(CarMix.Client.CarMixViajeService.Security Security, long idCreador, string origen, string destino, int plazas, decimal precio, string descripcion) {
             CarMix.Client.CarMixViajeService.AddViajeRequest inValue = new CarMix.Client.CarMixViajeService.AddViajeRequest();
             inValue.Security = Security;
+            inValue.idCreador = idCreador;
             inValue.origen = origen;
             inValue.destino = destino;
             inValue.plazas = plazas;

@@ -12,6 +12,13 @@ namespace CarMix.Client.Menus
         public static void Menu()
         {
             WebService_UserSoapClient service = new WebService_UserSoapClient();
+            CarMixWebService.Security securityUser = new CarMixWebService.Security
+            {
+
+                Password = "admin",
+                UserName = "admin"
+
+            };
             Console.WriteLine("");
             Console.WriteLine("0-Salir");
             Console.WriteLine("1-Listar usuarios");
@@ -32,13 +39,8 @@ namespace CarMix.Client.Menus
                         MenuInicio.Menu();
                         break;
                     case "1":
-                        User[] users = service.Users(new CarMixWebService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        });
+                        User[] users = service.Users(securityUser);
+                        Console.WriteLine("ID-Nombre-Contraseña");
                         foreach (User u in users)
                         {
                             Console.WriteLine(u.Id + " " + u.Name + " " + u.Password + " ");
@@ -49,20 +51,17 @@ namespace CarMix.Client.Menus
                         Console.WriteLine("Introduzca el identificador del usuario (puede verlo en la lista de usuarios)");
                         int idUser = int.Parse(Console.ReadLine());
                         Console.WriteLine("");
-                        User user = service.FindUser(new CarMixWebService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, idUser);
+                        User user = service.FindUser(securityUser, idUser);
+                        Console.WriteLine("ID-Nombre-Contraseña");
                         Console.WriteLine(user.Id + " " + user.Name + " " + user.Password + " ");
                         Console.WriteLine("");
-                        Console.WriteLine("Viajes creados");
+                        Console.WriteLine("Viajes creados:");
+                        Console.WriteLine("ID-Origen-Destino-Precio-Plazas");
                         foreach (Viaje v in user.ViajesCreados)
                             Console.WriteLine(v.Id + " " + v.Origen + " " + v.Destino + " " + v.Precio + " " + v.Plazas);
                         Console.WriteLine("");
-                        Console.WriteLine("Viajes como invitado");
+                        Console.WriteLine("Viajes como invitado:");
+                        Console.WriteLine("ID-Origen-Destino-Precio-Plazas");
                         foreach (Viaje v in user.ViajesSuscrito)
                             Console.WriteLine(v.Id + " " + v.Origen + " " + v.Destino + " " + v.Precio + " " + v.Plazas);
                         Menu();
@@ -74,13 +73,7 @@ namespace CarMix.Client.Menus
                         string password = Console.ReadLine();
                         Console.WriteLine("Genero Músical:");
                         string generoMusical = Console.ReadLine();
-                        service.AddUser(new CarMixWebService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, nombre, password, generoMusical);
+                        service.AddUser(securityUser, nombre, password, generoMusical);
                         Console.WriteLine("");
                         Console.WriteLine("Usuario añadido correctamente");
                         Menu();
@@ -88,13 +81,7 @@ namespace CarMix.Client.Menus
                     case "4":
                         Console.WriteLine("Introduce el identificador del usuario (ten en cuenta que todos los viajes creados por este usuario seran eliminados)");
                         int idUserDelete = int.Parse(Console.ReadLine());
-                        service.DeleteUser(new CarMixWebService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, idUserDelete);
+                        service.DeleteUser(securityUser, idUserDelete);
                         Console.WriteLine("Usuario eliminado correctamente");
                         Menu();
                         break;
@@ -107,13 +94,7 @@ namespace CarMix.Client.Menus
                         string nPassword = Console.ReadLine();
                         Console.WriteLine("Genero Músical:");
                         string nGeneroMusical = Console.ReadLine();
-                        service.UpdateUser(new CarMixWebService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, idUserUpdate, nNombre, nPassword, nGeneroMusical);
+                        service.UpdateUser(securityUser, idUserUpdate, nNombre, nPassword, nGeneroMusical);
                         Console.WriteLine("Usuario actualizado");
                         Menu();
                         break;
@@ -122,13 +103,7 @@ namespace CarMix.Client.Menus
                         int idUserPass = int.Parse(Console.ReadLine());
                         Console.WriteLine("Nueva contraseña:");
                         string nPass = Console.ReadLine();
-                        service.ChangePassword(new CarMixWebService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, idUserPass, nPass);
+                        service.ChangePassword(securityUser, idUserPass, nPass);
                         Console.WriteLine("Contraseña cambiada correctamente");
                         Menu();
                         break;
@@ -138,13 +113,7 @@ namespace CarMix.Client.Menus
                         int idUserInvitado = int.Parse(Console.ReadLine());
                         Console.WriteLine("Identificador del viaje del que se quiere eliminar al invitado:");
                         int idViajeInvitado = int.Parse(Console.ReadLine());
-                        service.DeleteInvitado(new CarMixWebService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, idUserInvitado, idViajeInvitado);
+                        service.DeleteInvitado(securityUser, idUserInvitado, idViajeInvitado);
                         Console.WriteLine("Usuario eliminado correctamente");
                         Menu();
                         break;
@@ -159,7 +128,20 @@ namespace CarMix.Client.Menus
                 {
                     Console.WriteLine("ERROR: Se necesita ser administrador");
                 }
-                MenuInicio.Menu();
+                else if (ex.Message.Contains("Ya existe un usuario con ese nombre"))
+                {
+                    Console.WriteLine("Ese nombre de usuario no esta disponible");
+                }
+                else if (ex.Message.Contains("No se ha encontrado la entidad solicitada"))
+                {
+                    Console.WriteLine("No existe ninguna entidad con ese identificador introducido");
+                }
+                else if (ex.Message.Contains("Se produjo un error al procesar su petición"))
+                {
+                    Console.WriteLine("Se ha producido un error al procesar su peticion");
+                }
+                
+                Menu();
             }
         }
     }

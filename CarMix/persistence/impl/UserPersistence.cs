@@ -11,7 +11,7 @@ namespace CarMix.persistence.impl
 {
     public class UserPersistence : IUserPersistence
     {
-        IUserViajePersistence db = new UserViajePersistence();
+         IUserViajePersistence db = new UserViajePersistence();
         IViajePersistence dbViaje = new ViajePersistence();
 
         public List<UserActivity> ActivityUsers()
@@ -100,6 +100,7 @@ namespace CarMix.persistence.impl
 
                 conn.Open();
                 User(id);
+                dbViaje.FindViaje(idViaje);
                 string sql = "DELETE FROM `user_viaje` WHERE role='invitado' AND FK_user_id = " + id + " AND FK_viaje_id = "+idViaje;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();

@@ -11,6 +11,32 @@ namespace CarMix.persistence.impl
 {
     public class UserViajePersistence : IUserViajePersistence
     {
+        
+        public bool AddUserViaje(long idUser, long idViaje, string rol)
+        {
+            MySqlConnection conn = DBConect.Conect();
+            try
+            {
+
+                conn.Open();
+                string sql = "INSERT INTO user_viaje(FK_user_id, FK_viaje_id, role) VALUES ('" + idUser + "', '" + idViaje + "','" + rol + "')";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch (FindException)
+            {
+                throw new FindException();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new GenericException();
+            }
+
+            conn.Close();
+            return true;
+        }
+
         public User CreadorViaje(long idViaje)
         {
             MySqlConnection conn = DBConect.Conect();
@@ -20,7 +46,7 @@ namespace CarMix.persistence.impl
 
                 conn.Open();
 
-                string sql = "SELECT * FROM user WHERE id = (SELECT FK_user_id FROM user_viaje WHERE FK_viaje_id="+idViaje+" AND role='creador')";
+                string sql = "SELECT * FROM user WHERE id = (SELECT FK_user_id FROM user_viaje WHERE FK_viaje_id="+idViaje+" AND role='CREADOR')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -95,7 +121,7 @@ namespace CarMix.persistence.impl
 
                 conn.Open();
 
-                string sql = "SELECT * FROM user WHERE id IN (SELECT FK_user_id FROM user_viaje WHERE FK_viaje_id=" + idViaje + " AND role='invitado')";
+                string sql = "SELECT * FROM user WHERE id IN (SELECT FK_user_id FROM user_viaje WHERE FK_viaje_id=" + idViaje + " AND role='INVITADO')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -128,7 +154,7 @@ namespace CarMix.persistence.impl
 
                 conn.Open();
 
-                string sql = "SELECT * FROM viaje WHERE id IN(SELECT FK_viaje_id FROM user_viaje WHERE FK_user_id="+idUser+ " AND role='creador')";
+                string sql = "SELECT * FROM viaje WHERE id IN(SELECT FK_viaje_id FROM user_viaje WHERE FK_user_id="+idUser+ " AND role='CREADOR')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -163,7 +189,7 @@ namespace CarMix.persistence.impl
 
                 conn.Open();
 
-                string sql = "SELECT * FROM viaje WHERE id IN(SELECT FK_viaje_id FROM user_viaje WHERE FK_user_id=" + idUser + " AND role='invitado')";
+                string sql = "SELECT * FROM viaje WHERE id IN(SELECT FK_viaje_id FROM user_viaje WHERE FK_user_id=" + idUser + " AND role='INVITADO')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 

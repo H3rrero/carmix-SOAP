@@ -23,7 +23,7 @@ namespace CarMix
 
         public bool Check()
         {
-            if (Security != null && Security.UserName.Equals("admin"))
+            if (Security != null && Security.UserName.Equals("admin") && Security.Password.Equals("admin"))
             {
                 return true;
             }
@@ -59,7 +59,7 @@ namespace CarMix
         }
         [WebMethod]
         [SoapHeader("Security", Direction = SoapHeaderDirection.In)]
-        public string AddViaje(string origen, string destino, int plazas, decimal precio, string descripcion)
+        public string AddViaje(long idCreador,string origen, string destino, int plazas, decimal precio, string descripcion)
         {
             try { 
             if (Check())
@@ -71,8 +71,10 @@ namespace CarMix
                     Destino = destino,
                     Plazas = plazas,
                     Precio = precio,
-                    Descripcion = descripcion
+                    Descripcion = descripcion,
+                    Creador = new model.User { Id=idCreador, Name="user", Password="prueba", GeneroMusical="prueba"}
                 };
+                    
                 return db.AddViaje(viaje);
             }
             }

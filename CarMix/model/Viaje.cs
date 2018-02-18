@@ -15,5 +15,6 @@ namespace CarMix.model
         public string Descripcion { set; get; }
         public List<User> Invitados { set; get; }
         public User Creador { get; set; }
+        public string Lista { get; set; }
     }
 }

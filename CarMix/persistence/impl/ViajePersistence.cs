@@ -20,10 +20,15 @@ namespace CarMix.persistence.impl
             {
 
                 conn.Open();
-
                 string sql = "INSERT INTO viaje (origen, destino, plazas, precio, descripcion) VALUES ('" + viaje.Origen + "', '" + viaje.Destino + "','" + viaje.Plazas + "','" + viaje.Precio + "','" + viaje.Descripcion + "')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
+                List<Viaje> viajes = Viajes();
+                db.AddUserViaje(viaje.Creador.Id, viajes[viajes.Count-1].Id, "CREADOR");
+            }
+            catch (FindException)
+            {
+                throw new FindException();
             }
             catch (Exception)
             {
@@ -145,6 +150,10 @@ namespace CarMix.persistence.impl
                     viaje.Descripcion = (string)rdr[5];
                     viaje.Creador = db.CreadorViaje((long)rdr[0]);
                     viaje.Invitados = db.InvitadosViaje((long)rdr[0]);
+                    if (rdr[6] is DBNull)
+                        viaje.Lista = "No tiene lista de reproducción";
+                    else
+                        viaje.Lista = (String)rdr[6];
                     salida = viaje;
                 }
                 rdr.Close();
@@ -220,6 +229,10 @@ namespace CarMix.persistence.impl
                     viaje.Descripcion = (string)rdr[5];
                     viaje.Creador = db.CreadorViaje((long)rdr[0]);
                     viaje.Invitados = db.InvitadosViaje((long)rdr[0]);
+                    if (rdr[6] is DBNull)
+                        viaje.Lista = "No tiene lista de reproducción";
+                    else
+                        viaje.Lista = (String)rdr[6];
                     viajes.Add(viaje);
                 }
                 rdr.Close();

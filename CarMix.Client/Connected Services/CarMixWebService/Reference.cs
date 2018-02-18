@@ -232,6 +232,8 @@ namespace CarMix.Client.CarMixWebService {
         
         private User creadorField;
         
+        private string listaField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public long Id {
@@ -325,6 +327,18 @@ namespace CarMix.Client.CarMixWebService {
             set {
                 this.creadorField = value;
                 this.RaisePropertyChanged("Creador");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public string Lista {
+            get {
+                return this.listaField;
+            }
+            set {
+                this.listaField = value;
+                this.RaisePropertyChanged("Lista");
             }
         }
         

@@ -14,8 +14,7 @@ namespace CarMix.Client
 
         static void Main(string[] args)
         {
-            MenuInicio.Menu();
-
+            Credenciales.CargarMenu();
         }
 
         

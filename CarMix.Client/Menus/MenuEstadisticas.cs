@@ -15,6 +15,20 @@ namespace CarMix.Client.Menus
         {
             WebService_ViajeSoapClient viajesService = new WebService_ViajeSoapClient();
             WebService_UserSoapClient userService = new WebService_UserSoapClient();
+            CarMixWebService.Security securityUser = new CarMixWebService.Security
+            {
+
+                Password = "admin",
+                UserName = "admin"
+
+            };
+            CarMixViajeService.Security securityViaje = new CarMixViajeService.Security
+            {
+
+                Password = "admin",
+                UserName = "admin"
+
+            };
 
             Console.WriteLine("");
             Console.WriteLine("0-Salir");
@@ -31,13 +45,7 @@ namespace CarMix.Client.Menus
                         MenuInicio.Menu();
                         break;
                     case "1":
-                        UserActivity[] actividades = userService.UsersActivity(new CarMixWebService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        });
+                        UserActivity[] actividades = userService.UsersActivity(securityUser);
                         Console.WriteLine("Usuarios junto al numero de veces que han usado nuestros servicios:");
                         foreach (UserActivity v in actividades)
                         {
@@ -46,13 +54,7 @@ namespace CarMix.Client.Menus
                         Menu();
                         break;
                     case "2":
-                        LugaresPopulares[] origenes = viajesService.OrigenesPopulares(new CarMixViajeService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        });
+                        LugaresPopulares[] origenes = viajesService.OrigenesPopulares(securityViaje);
                         Console.WriteLine("Origenes junto al numero de veces que han sido elegidos por los usuarios:");
                         foreach (LugaresPopulares o in origenes)
                         {
@@ -61,13 +63,7 @@ namespace CarMix.Client.Menus
                         Menu();
                         break;
                     case "3":
-                        LugaresPopulares[] destinos = viajesService.DestinosPopulares(new CarMixViajeService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        });
+                        LugaresPopulares[] destinos = viajesService.DestinosPopulares(securityViaje);
                         Console.WriteLine("Destinos junto al numero de veces que han sido elegidos por los usuarios:");
                         foreach (LugaresPopulares o in destinos)
                         {
@@ -86,7 +82,15 @@ namespace CarMix.Client.Menus
                 {
                     Console.WriteLine("ERROR: Se necesita ser administrador");
                 }
-                MenuInicio.Menu();
+                else if (ex.Message.Contains("No se ha encontrado la entidad solicitada"))
+                {
+                    Console.WriteLine("No existe ninguna entidad con ese identificador introducido");
+                }
+                else if (ex.Message.Contains("Se produjo un error al procesar su petición"))
+                {
+                    Console.WriteLine("Se ha producido un error al procesar su peticion");
+                }
+                Menu();
             }
         }
         }

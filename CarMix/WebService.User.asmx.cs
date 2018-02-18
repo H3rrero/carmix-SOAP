@@ -22,7 +22,7 @@ namespace CarMix
         UserPersistence db = new UserPersistence();
         public  bool Check()
         {
-            if (Security != null && Security.UserName.Equals("admin"))
+            if (Security != null && Security.UserName.Equals("admin") && Security.Password.Equals("admin"))
             {
                 return true;
             }
@@ -61,8 +61,11 @@ namespace CarMix
         {
             try
             {
+                List<User> users = Users();
+                users.ForEach(x=> { if (x.Name.Equals(name)) { throw new FindException("Ya existe un usuario con ese nombre"); } });
                 if (Check())
                 {
+                    
 
                     User user = new User();
                     user.Name = name;
@@ -70,6 +73,10 @@ namespace CarMix
                     user.GeneroMusical = generoMusical;
                     return db.AddUser(user);
                 }
+            }
+            catch (FindException ex)
+            {
+                throw ex;
             }
             catch (UnCheckException ex)
             {
@@ -144,6 +151,8 @@ namespace CarMix
         {
             try
             {
+                List<User> users = Users();
+                users.ForEach(x => { if (x.Name.Equals(name)) { throw new FindException("Ya existe un usuario con ese nombre"); } });
                 if (Check())
                 {
 

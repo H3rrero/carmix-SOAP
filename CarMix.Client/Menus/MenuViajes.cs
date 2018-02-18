@@ -12,6 +12,21 @@ namespace CarMix.Client.Menus
         public static void Menu()
         {
             WebService_ViajeSoapClient service = new WebService_ViajeSoapClient();
+            CarMixWebService.WebService_UserSoapClient userService = new CarMixWebService.WebService_UserSoapClient();
+            CarMixViajeService.Security securityViaje = new CarMixViajeService.Security
+            {
+
+                Password = "admin",
+                UserName = "admin"
+
+            };
+            CarMixWebService.Security securityUser = new CarMixWebService.Security
+            {
+
+                Password = "admin",
+                UserName = "admin"
+
+            };
             Console.WriteLine("");
             Console.WriteLine("0-Salir");
             Console.WriteLine("1-Listar viajes");
@@ -30,17 +45,12 @@ namespace CarMix.Client.Menus
                         MenuInicio.Menu();
                         break;
                     case "1":
-                        Viaje[] viajes = service.Viajes(new CarMixViajeService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        });
+                        Viaje[] viajes = service.Viajes(securityViaje);
                         Console.WriteLine("Viajes:");
+                        Console.WriteLine("ID-Origen-Destino-Precio-Plazas-Descripción-Lista de spotify");
                         foreach (Viaje v in viajes)
                         {
-                            Console.WriteLine(v.Id + " " + v.Origen + " " + v.Destino + " " +v.Precio + " " +v.Plazas + " " +v.Descripcion);
+                            Console.WriteLine(v.Id + " " + v.Origen + " " + v.Destino + " " +v.Precio + " " +v.Plazas + " " +v.Descripcion+" "+v.Lista);
                         }
                         Menu();
                         break;
@@ -48,14 +58,9 @@ namespace CarMix.Client.Menus
                         Console.WriteLine("Introduzca el identificador del viaje (puede verlo en la lista de viajes)");
                         int idViaje = int.Parse(Console.ReadLine());
                         Console.WriteLine("");
-                        Viaje viaje = service.FindViaje(new CarMixViajeService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, idViaje);
-                        Console.WriteLine("Viajes:");
+                        Viaje viaje = service.FindViaje(securityViaje, idViaje);
+                        Console.WriteLine("Viaje:");
+                        Console.WriteLine("ID-Origen-Destino-Precio-Plazas-Descripción-Lista de spotify");
                         Console.WriteLine(viaje.Id + " " + viaje.Origen + " " + viaje.Destino + " " + viaje.Precio + " " + viaje.Plazas + " " + viaje.Descripcion);
                         Console.WriteLine("");
                         Console.WriteLine("Creador:");
@@ -67,6 +72,9 @@ namespace CarMix.Client.Menus
                         Menu();
                         break;
                     case "3":
+                        Console.WriteLine("identificador del usuario creador del viaje:");
+                        int idUserC = int.Parse(Console.ReadLine());
+                        userService.FindUser(securityUser,idUserC);
                         Console.WriteLine("Origen:");
                         string origen = Console.ReadLine();
                         Console.WriteLine("Destino:");
@@ -77,13 +85,7 @@ namespace CarMix.Client.Menus
                         decimal precio =decimal.Parse(Console.ReadLine());
                         Console.WriteLine("Descripción:");
                         string descripcion = Console.ReadLine();
-                        service.AddViaje(new CarMixViajeService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        },origen,destino,plazas,precio,descripcion);
+                        service.AddViaje(securityViaje, idUserC, origen,destino,plazas,precio,descripcion);
                         Console.WriteLine("");
                         Console.WriteLine("Viaje añadido correctamente");
                         Menu();
@@ -91,13 +93,7 @@ namespace CarMix.Client.Menus
                     case "4":
                         Console.WriteLine("Introduce el identificador del viaje");
                         int idViajeDelete = int.Parse(Console.ReadLine());
-                        service.DeleteViaje(new CarMixViajeService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, idViajeDelete);
+                        service.DeleteViaje(securityViaje, idViajeDelete);
                         Console.WriteLine("Viaje eliminado correctamente");
                         Menu();
                         break;
@@ -114,13 +110,7 @@ namespace CarMix.Client.Menus
                         decimal nPrecio = decimal.Parse(Console.ReadLine());
                         Console.WriteLine("Descripción:");
                         string nDescripcion = Console.ReadLine();
-                        service.UpdateViaje(new CarMixViajeService.Security
-                        {
-
-                            Password = "Password",
-                            UserName = "admin"
-
-                        }, idViajeUpdate,nOrigen,nDestino,nPlazas,nPrecio,nDescripcion);
+                        service.UpdateViaje(securityViaje, idViajeUpdate,nOrigen,nDestino,nPlazas,nPrecio,nDescripcion);
                         Console.WriteLine("Viaje actualizado");
                         Menu();
                         break;
@@ -135,7 +125,15 @@ namespace CarMix.Client.Menus
                 {
                     Console.WriteLine("ERROR: Se necesita ser administrador");
                 }
-                MenuInicio.Menu();
+                else if (ex.Message.Contains("No se ha encontrado la entidad solicitada"))
+                {
+                    Console.WriteLine("No existe ninguna entidad con ese identificador introducido");
+                }
+                else if (ex.Message.Contains("Se produjo un error al procesar su petición"))
+                {
+                    Console.WriteLine("Se ha producido un error al procesar su peticion");
+                }
+                Menu();
             }
         }
     }

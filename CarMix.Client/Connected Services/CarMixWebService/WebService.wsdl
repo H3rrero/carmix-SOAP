@@ -42,6 +42,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Invitados" type="tns:ArrayOfUser" />
           <s:element minOccurs="0" maxOccurs="1" name="Creador" type="tns:User" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="AddUser">

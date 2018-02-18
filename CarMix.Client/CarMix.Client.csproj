@@ -55,6 +55,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Menus\Credenciales.cs" />
     <Compile Include="Menus\MenuEstadisticas.cs" />
     <Compile Include="Menus\MenuInicio.cs" />
     <Compile Include="Menus\MenuUsuarios.cs" />
