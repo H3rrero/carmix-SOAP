@@ -45,16 +45,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\CarMixViajeService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\CarMixWebService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Menus\MenuEstadisticas.cs" />
+    <Compile Include="Menus\MenuInicio.cs" />
+    <Compile Include="Menus\MenuUsuarios.cs" />
+    <Compile Include="Menus\MenuViajes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.AddViajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.DeleteViajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.DestinosPopularesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.FindViajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.LugaresPopulares.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.OrigenesPopularesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.UpdateViajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.Viaje.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\CarMix.Client.CarMixViajeService.ViajesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CarMixViajeService\WebService.wsdl" />
     <None Include="Connected Services\CarMixWebService\CarMix.Client.CarMixWebService.AddUserResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -94,6 +131,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CarMixViajeService\" />
     <WCFMetadataStorage Include="Connected Services\CarMixWebService\" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +154,21 @@
       <Project>{8e2470de-7716-4081-86a6-ad1eeb50b75d}</Project>
       <Name>CarMix</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CarMixViajeService\WebService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CarMixViajeService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CarMixViajeService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CarMixViajeService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

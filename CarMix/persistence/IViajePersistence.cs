@@ -19,9 +19,9 @@ namespace CarMix.persistence
 
         string EditViaje(long id, string origen, string destino, int plazas, decimal precio, string descripcion);
 
-        List<string> OrigenesPopulares();
+        List<LugaresPopulares> OrigenesPopulares();
 
-        List<string> DestinosPopulares();
+        List<LugaresPopulares> DestinosPopulares();
 
     }
 }

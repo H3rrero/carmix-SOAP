@@ -188,13 +188,13 @@ namespace CarMix.Client.CarMixWebService {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public long apariciones {
+        public long Apariciones {
             get {
                 return this.aparicionesField;
             }
             set {
                 this.aparicionesField = value;
-                this.RaisePropertyChanged("apariciones");
+                this.RaisePropertyChanged("Apariciones");
             }
         }
         
@@ -732,14 +732,18 @@ namespace CarMix.Client.CarMixWebService {
         public CarMix.Client.CarMixWebService.Security Security;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://carmix.user.admin/", Order=0)]
-        public int id;
+        public long id;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://carmix.user.admin/", Order=1)]
+        public long idViaje;
         
         public DeleteInvitadoRequest() {
         }
         
-        public DeleteInvitadoRequest(CarMix.Client.CarMixWebService.Security Security, int id) {
+        public DeleteInvitadoRequest(CarMix.Client.CarMixWebService.Security Security, long id, long idViaje) {
             this.Security = Security;
             this.id = id;
+            this.idViaje = idViaje;
         }
     }
     
@@ -1013,10 +1017,11 @@ namespace CarMix.Client.CarMixWebService {
             return base.Channel.DeleteInvitado(request);
         }
         
-        public string DeleteInvitado(CarMix.Client.CarMixWebService.Security Security, int id) {
+        public string DeleteInvitado(CarMix.Client.CarMixWebService.Security Security, long id, long idViaje) {
             CarMix.Client.CarMixWebService.DeleteInvitadoRequest inValue = new CarMix.Client.CarMixWebService.DeleteInvitadoRequest();
             inValue.Security = Security;
             inValue.id = id;
+            inValue.idViaje = idViaje;
             CarMix.Client.CarMixWebService.DeleteInvitadoResponse retVal = ((CarMix.Client.CarMixWebService.WebService_UserSoap)(this)).DeleteInvitado(inValue);
             return retVal.DeleteInvitadoResult;
         }
@@ -1026,10 +1031,11 @@ namespace CarMix.Client.CarMixWebService {
             return base.Channel.DeleteInvitadoAsync(request);
         }
         
-        public System.Threading.Tasks.Task<CarMix.Client.CarMixWebService.DeleteInvitadoResponse> DeleteInvitadoAsync(CarMix.Client.CarMixWebService.Security Security, int id) {
+        public System.Threading.Tasks.Task<CarMix.Client.CarMixWebService.DeleteInvitadoResponse> DeleteInvitadoAsync(CarMix.Client.CarMixWebService.Security Security, long id, long idViaje) {
             CarMix.Client.CarMixWebService.DeleteInvitadoRequest inValue = new CarMix.Client.CarMixWebService.DeleteInvitadoRequest();
             inValue.Security = Security;
             inValue.id = id;
+            inValue.idViaje = idViaje;
             return ((CarMix.Client.CarMixWebService.WebService_UserSoap)(this)).DeleteInvitadoAsync(inValue);
         }
         

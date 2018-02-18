@@ -222,13 +222,13 @@ namespace CarMix
 
         [WebMethod]
         [SoapHeader("Security", Direction = SoapHeaderDirection.In)]
-        public string DeleteInvitado(int id)
+        public string DeleteInvitado(long id, long idViaje)
         {
             try
             {
                 if (Check())
                 {
-                    return db.DeleteInvitado(id);
+                    return db.DeleteInvitado(id, idViaje);
                 }
             }
             catch (UnCheckException ex)

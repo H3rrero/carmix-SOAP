@@ -173,9 +173,9 @@ namespace CarMix
 
         [WebMethod]
         [SoapHeader("Security", Direction = SoapHeaderDirection.In)]
-        public List<string> DestinosPopulares()
+        public List<LugaresPopulares> DestinosPopulares()
         {
-            List<string> salida = new List<string>();
+            List<LugaresPopulares> salida = new List<LugaresPopulares>();
             try { 
             if (Check())
             {
@@ -198,9 +198,9 @@ namespace CarMix
 
         [WebMethod]
         [SoapHeader("Security", Direction = SoapHeaderDirection.In)]
-        public List<string> OrigenesPopulares()
+        public List<LugaresPopulares> OrigenesPopulares()
         {
-            List<string> salida = new List<string>();
+            List<LugaresPopulares> salida = new List<LugaresPopulares>();
             try { 
             if (Check())
             {

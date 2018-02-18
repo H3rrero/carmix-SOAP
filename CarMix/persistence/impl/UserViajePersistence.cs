@@ -95,7 +95,7 @@ namespace CarMix.persistence.impl
 
                 conn.Open();
 
-                string sql = "SELECT * FROM user WHERE id = (SELECT FK_user_id FROM user_viaje WHERE FK_viaje_id=" + idViaje + " AND role='invitado')";
+                string sql = "SELECT * FROM user WHERE id IN (SELECT FK_user_id FROM user_viaje WHERE FK_viaje_id=" + idViaje + " AND role='invitado')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 

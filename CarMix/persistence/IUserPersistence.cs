@@ -23,7 +23,7 @@ namespace CarMix.persistence
 
         List<UserActivity> ActivityUsers();
 
-        string DeleteInvitado(long id);
+        string DeleteInvitado(long id,long idViaje);
 
         string DeleteUserViajes(long id);
     }

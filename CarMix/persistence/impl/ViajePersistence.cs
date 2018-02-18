@@ -65,10 +65,10 @@ namespace CarMix.persistence.impl
             return "viaje eliminado con exito";
         }
 
-        public List<string> DestinosPopulares()
+        public List<LugaresPopulares> DestinosPopulares()
         {
             MySqlConnection conn = DBConect.Conect();
-            List<string> salida = new List<string>();
+            List<LugaresPopulares> salida = new List<LugaresPopulares>();
             try
             {
 
@@ -80,8 +80,10 @@ namespace CarMix.persistence.impl
 
                 while (rdr.Read())
                 {
-
-                    salida.Add((string)rdr[0]);
+                    LugaresPopulares l = new LugaresPopulares();
+                    l.Name = (string)rdr[0];
+                    l.Apariciones = (long)rdr[1];
+                    salida.Add(l);
                 }
                 rdr.Close();
             }
@@ -162,10 +164,10 @@ namespace CarMix.persistence.impl
             return salida;
         }
 
-        public List<string> OrigenesPopulares()
+        public List<LugaresPopulares> OrigenesPopulares()
         {
             MySqlConnection conn = DBConect.Conect();
-            List<string> salida = new List<string>();
+            List<LugaresPopulares> salida = new List<LugaresPopulares>();
             try
             {
 
@@ -177,8 +179,11 @@ namespace CarMix.persistence.impl
 
                 while (rdr.Read())
                 {
-                   
-                    salida.Add((string)rdr[0]);
+
+                    LugaresPopulares l = new LugaresPopulares();
+                    l.Name = (string)rdr[0];
+                    l.Apariciones = (long)rdr[1];
+                    salida.Add(l);
                 }
                 rdr.Close();
             }
@@ -219,8 +224,10 @@ namespace CarMix.persistence.impl
                 }
                 rdr.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+
+                Console.WriteLine(ex.Message);
                 throw new GenericException();
             }
 

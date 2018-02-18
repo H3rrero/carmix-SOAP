@@ -31,7 +31,7 @@ namespace CarMix.persistence.impl
                 {
                     UserActivity user = new UserActivity();
                     user.Name = (string)rdr[0];
-                    user.apariciones = (long)rdr[1];
+                    user.Apariciones = (long)rdr[1];
                     users.Add(user);
                 }
                 rdr.Close();
@@ -92,7 +92,7 @@ namespace CarMix.persistence.impl
             return "contraseña actualizada con exito";
         }
 
-        public string DeleteInvitado(long id)
+        public string DeleteInvitado(long id, long idViaje)
         {
             MySqlConnection conn = DBConect.Conect();
             try
@@ -100,7 +100,7 @@ namespace CarMix.persistence.impl
 
                 conn.Open();
                 User(id);
-                string sql = "DELETE FROM `user_viaje` WHERE role='invitado' AND FK_user_id = " + id;
+                string sql = "DELETE FROM `user_viaje` WHERE role='invitado' AND FK_user_id = " + id + " AND FK_viaje_id = "+idViaje;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }

@@ -5,9 +5,8 @@ using System.Web;
 
 namespace CarMix.model
 {
-    public class UserActivity
+    public class LugaresPopulares
     {
-        public long Id { set; get; }
         public string Name { set; get; }
         public long Apariciones { set; get; }
     }

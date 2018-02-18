@@ -85,6 +85,7 @@
     <Compile Include="excepciones\FindException.cs" />
     <Compile Include="excepciones\GenericException.cs" />
     <Compile Include="excepciones\UnCheckException.cs" />
+    <Compile Include="model\LugaresPopulares.cs" />
     <Compile Include="model\User.cs" />
     <Compile Include="model\UserActivity.cs" />
     <Compile Include="model\Viaje.cs" />
