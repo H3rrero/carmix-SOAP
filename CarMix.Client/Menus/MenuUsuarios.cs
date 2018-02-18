@@ -1,7 +1,10 @@
-﻿using CarMix.Client.CarMixWebService;
+﻿
+using CarMix.Client.UserHttps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,8 +14,12 @@ namespace CarMix.Client.Menus
     {
         public static void Menu()
         {
-            WebService_UserSoapClient service = new WebService_UserSoapClient();
-            CarMixWebService.Security securityUser = new CarMixWebService.Security
+            ServicePointManager.ServerCertificateValidationCallback +=
+            (sender, certificate, chain, sslPolicyErrors) => true;
+            var myBinding = new BasicHttpsBinding();
+            var myEndpointAddress = new EndpointAddress("https://156.35.98.41:8443/CarMix/WebService.User.asmx?WSDL");
+            WebService_UserSoapClient service = new WebService_UserSoapClient(myBinding, myEndpointAddress);
+            CarMix.Client.UserHttps.Security securityUser = new CarMix.Client.UserHttps.Security
             {
 
                 Password = "admin",

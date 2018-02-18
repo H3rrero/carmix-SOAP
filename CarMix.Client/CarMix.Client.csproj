@@ -55,6 +55,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\UserHttps\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ViajeHttps\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Menus\Credenciales.cs" />
     <Compile Include="Menus\MenuEstadisticas.cs" />
     <Compile Include="Menus\MenuInicio.cs" />
@@ -127,6 +137,68 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\CarMixWebService\WebService.wsdl" />
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.AddUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.ChangePasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.DeleteInvitadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.DeleteUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.DeleteViajesUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.FindUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.UpdateUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.UserActivity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.UsersActivityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\CarMix.Client.UserHttps.UsersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UserHttps\WebService.wsdl" />
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.AddViajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.DeleteViajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.DestinosPopularesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.FindViajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.LugaresPopulares.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.OrigenesPopularesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.UpdateViajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.Viaje.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\CarMix.Client.ViajeHttps.ViajesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ViajeHttps\WebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -134,6 +206,8 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\CarMixViajeService\" />
     <WCFMetadataStorage Include="Connected Services\CarMixWebService\" />
+    <WCFMetadataStorage Include="Connected Services\UserHttps\" />
+    <WCFMetadataStorage Include="Connected Services\ViajeHttps\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\CarMixWebService\WebService.disco" />
@@ -167,6 +241,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\CarMixViajeService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UserHttps\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UserHttps\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UserHttps\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ViajeHttps\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ViajeHttps\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ViajeHttps\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

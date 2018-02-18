@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://carmix.viaje.admin/" xmlns:s1="http://schemas.xmlsoap.org/ws/2002/04/secext" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://carmix.viaje.admin/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://carmix.viaje.admin/">
+      <s:element name="Viajes">
+        <s:complexType />
+      </s:element>
+      <s:element name="ViajesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ViajesResult" type="tns:ArrayOfViaje" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfViaje">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Viaje" nillable="true" type="tns:Viaje" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Viaje">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origen" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destino" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Plazas" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Precio" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Invitados" type="tns:ArrayOfUser" />
+          <s:element minOccurs="0" maxOccurs="1" name="Creador" type="tns:User" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUser">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="tns:User" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="User">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeneroMusical" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ViajesCreados" type="tns:ArrayOfViaje" />
+          <s:element minOccurs="0" maxOccurs="1" name="ViajesSuscrito" type="tns:ArrayOfViaje" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddViaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idCreador" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="origen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="destino" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="plazas" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="precio" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddViajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddViajeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteViaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteViajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteViajeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateViaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="origen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="destino" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="plazas" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="precio" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateViajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateViajeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindViaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindViajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindViajeResult" type="tns:Viaje" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DestinosPopulares">
+        <s:complexType />
+      </s:element>
+      <s:element name="DestinosPopularesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DestinosPopularesResult" type="tns:ArrayOfLugaresPopulares" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLugaresPopulares">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LugaresPopulares" nillable="true" type="tns:LugaresPopulares" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LugaresPopulares">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Apariciones" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OrigenesPopulares">
+        <s:complexType />
+      </s:element>
+      <s:element name="OrigenesPopularesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OrigenesPopularesResult" type="tns:ArrayOfLugaresPopulares" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://schemas.xmlsoap.org/ws/2002/04/secext">
+      <s:element name="Security" type="s1:Security" />
+      <s:complexType name="Security">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ViajesSoapIn">
+    <wsdl:part name="parameters" element="tns:Viajes" />
+  </wsdl:message>
+  <wsdl:message name="ViajesSoapOut">
+    <wsdl:part name="parameters" element="tns:ViajesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ViajesSecurity">
+    <wsdl:part name="Security" element="s1:Security" />
+  </wsdl:message>
+  <wsdl:message name="AddViajeSoapIn">
+    <wsdl:part name="parameters" element="tns:AddViaje" />
+  </wsdl:message>
+  <wsdl:message name="AddViajeSoapOut">
+    <wsdl:part name="parameters" element="tns:AddViajeResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddViajeSecurity">
+    <wsdl:part name="Security" element="s1:Security" />
+  </wsdl:message>
+  <wsdl:message name="DeleteViajeSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteViaje" />
+  </wsdl:message>
+  <wsdl:message name="DeleteViajeSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteViajeResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteViajeSecurity">
+    <wsdl:part name="Security" element="s1:Security" />
+  </wsdl:message>
+  <wsdl:message name="UpdateViajeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateViaje" />
+  </wsdl:message>
+  <wsdl:message name="UpdateViajeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateViajeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateViajeSecurity">
+    <wsdl:part name="Security" element="s1:Security" />
+  </wsdl:message>
+  <wsdl:message name="FindViajeSoapIn">
+    <wsdl:part name="parameters" element="tns:FindViaje" />
+  </wsdl:message>
+  <wsdl:message name="FindViajeSoapOut">
+    <wsdl:part name="parameters" element="tns:FindViajeResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindViajeSecurity">
+    <wsdl:part name="Security" element="s1:Security" />
+  </wsdl:message>
+  <wsdl:message name="DestinosPopularesSoapIn">
+    <wsdl:part name="parameters" element="tns:DestinosPopulares" />
+  </wsdl:message>
+  <wsdl:message name="DestinosPopularesSoapOut">
+    <wsdl:part name="parameters" element="tns:DestinosPopularesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DestinosPopularesSecurity">
+    <wsdl:part name="Security" element="s1:Security" />
+  </wsdl:message>
+  <wsdl:message name="OrigenesPopularesSoapIn">
+    <wsdl:part name="parameters" element="tns:OrigenesPopulares" />
+  </wsdl:message>
+  <wsdl:message name="OrigenesPopularesSoapOut">
+    <wsdl:part name="parameters" element="tns:OrigenesPopularesResponse" />
+  </wsdl:message>
+  <wsdl:message name="OrigenesPopularesSecurity">
+    <wsdl:part name="Security" element="s1:Security" />
+  </wsdl:message>
+  <wsdl:portType name="WebService_ViajeSoap">
+    <wsdl:operation name="Viajes">
+      <wsdl:input message="tns:ViajesSoapIn" />
+      <wsdl:output message="tns:ViajesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddViaje">
+      <wsdl:input message="tns:AddViajeSoapIn" />
+      <wsdl:output message="tns:AddViajeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteViaje">
+      <wsdl:input message="tns:DeleteViajeSoapIn" />
+      <wsdl:output message="tns:DeleteViajeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateViaje">
+      <wsdl:input message="tns:UpdateViajeSoapIn" />
+      <wsdl:output message="tns:UpdateViajeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindViaje">
+      <wsdl:input message="tns:FindViajeSoapIn" />
+      <wsdl:output message="tns:FindViajeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DestinosPopulares">
+      <wsdl:input message="tns:DestinosPopularesSoapIn" />
+      <wsdl:output message="tns:DestinosPopularesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OrigenesPopulares">
+      <wsdl:input message="tns:OrigenesPopularesSoapIn" />
+      <wsdl:output message="tns:OrigenesPopularesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebService_ViajeSoap" type="tns:WebService_ViajeSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Viajes">
+      <soap:operation soapAction="http://carmix.viaje.admin/Viajes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ViajesSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddViaje">
+      <soap:operation soapAction="http://carmix.viaje.admin/AddViaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddViajeSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteViaje">
+      <soap:operation soapAction="http://carmix.viaje.admin/DeleteViaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DeleteViajeSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateViaje">
+      <soap:operation soapAction="http://carmix.viaje.admin/UpdateViaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateViajeSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindViaje">
+      <soap:operation soapAction="http://carmix.viaje.admin/FindViaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FindViajeSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DestinosPopulares">
+      <soap:operation soapAction="http://carmix.viaje.admin/DestinosPopulares" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DestinosPopularesSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrigenesPopulares">
+      <soap:operation soapAction="http://carmix.viaje.admin/OrigenesPopulares" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:OrigenesPopularesSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebService_ViajeSoap12" type="tns:WebService_ViajeSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Viajes">
+      <soap12:operation soapAction="http://carmix.viaje.admin/Viajes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ViajesSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddViaje">
+      <soap12:operation soapAction="http://carmix.viaje.admin/AddViaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddViajeSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteViaje">
+      <soap12:operation soapAction="http://carmix.viaje.admin/DeleteViaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DeleteViajeSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateViaje">
+      <soap12:operation soapAction="http://carmix.viaje.admin/UpdateViaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateViajeSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindViaje">
+      <soap12:operation soapAction="http://carmix.viaje.admin/FindViaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FindViajeSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DestinosPopulares">
+      <soap12:operation soapAction="http://carmix.viaje.admin/DestinosPopulares" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DestinosPopularesSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrigenesPopulares">
+      <soap12:operation soapAction="http://carmix.viaje.admin/OrigenesPopulares" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:OrigenesPopularesSecurity" part="Security" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService_Viaje">
+    <wsdl:port name="WebService_ViajeSoap" binding="tns:WebService_ViajeSoap">
+      <soap:address location="https://156.35.98.41:8443/CarMix/WebService.Viaje.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebService_ViajeSoap12" binding="tns:WebService_ViajeSoap12">
+      <soap12:address location="https://156.35.98.41:8443/CarMix/WebService.Viaje.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

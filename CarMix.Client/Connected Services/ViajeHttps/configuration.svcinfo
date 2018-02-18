@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configurationSnapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:schemas-microsoft-com:xml-wcfconfigurationsnapshot">
+  <behaviors />
+  <bindings>
+    <binding digest="System.ServiceModel.Configuration.BasicHttpBindingElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089:&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data name=&quot;WebService_ViajeSoap1&quot;&gt;&lt;security mode=&quot;Transport&quot; /&gt;&lt;/Data&gt;" bindingType="basicHttpBinding" name="WebService_ViajeSoap1" />
+    <binding digest="System.ServiceModel.Configuration.BasicHttpBindingElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089:&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data name=&quot;WebService_ViajeSoap2&quot; /&gt;" bindingType="basicHttpBinding" name="WebService_ViajeSoap2" />
+  </bindings>
+  <endpoints>
+    <endpoint normalizedDigest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;https://156.35.98.41:8443/CarMix/WebService.Viaje.asmx&quot; binding=&quot;basicHttpBinding&quot; bindingConfiguration=&quot;WebService_ViajeSoap1&quot; contract=&quot;ViajeHttps.WebService_ViajeSoap&quot; name=&quot;WebService_ViajeSoap1&quot; /&gt;" digest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;https://156.35.98.41:8443/CarMix/WebService.Viaje.asmx&quot; binding=&quot;basicHttpBinding&quot; bindingConfiguration=&quot;WebService_ViajeSoap1&quot; contract=&quot;ViajeHttps.WebService_ViajeSoap&quot; name=&quot;WebService_ViajeSoap1&quot; /&gt;" contractName="ViajeHttps.WebService_ViajeSoap" name="WebService_ViajeSoap1" />
+  </endpoints>
+</configurationSnapshot>

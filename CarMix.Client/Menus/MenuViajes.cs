@@ -1,9 +1,9 @@
-﻿using CarMix.Client.CarMixViajeService;
+﻿
+using CarMix.Client.UserHttps;
+using CarMix.Client.ViajeHttps;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.ServiceModel;
 
 namespace CarMix.Client.Menus
 {
@@ -11,16 +11,21 @@ namespace CarMix.Client.Menus
     {
         public static void Menu()
         {
-            WebService_ViajeSoapClient service = new WebService_ViajeSoapClient();
-            CarMixWebService.WebService_UserSoapClient userService = new CarMixWebService.WebService_UserSoapClient();
-            CarMixViajeService.Security securityViaje = new CarMixViajeService.Security
+            ServicePointManager.ServerCertificateValidationCallback +=
+               (sender, certificate, chain, sslPolicyErrors) => true;
+            var myBinding = new BasicHttpsBinding();
+            var myEndpointAddress = new EndpointAddress("https://156.35.98.41:8443/CarMix/WebService.Viaje.asmx?WSDL");
+            var myEndpointAddressUser = new EndpointAddress("https://156.35.98.41:8443/CarMix/WebService.User.asmx?WSDL");
+            WebService_ViajeSoapClient service = new WebService_ViajeSoapClient(myBinding, myEndpointAddress);
+            WebService_UserSoapClient userService = new WebService_UserSoapClient(myBinding, myEndpointAddressUser);
+            CarMix.Client.ViajeHttps.Security securityViaje = new CarMix.Client.ViajeHttps.Security
             {
 
                 Password = "admin",
                 UserName = "admin"
 
             };
-            CarMixWebService.Security securityUser = new CarMixWebService.Security
+            CarMix.Client.UserHttps.Security securityUser = new CarMix.Client.UserHttps.Security
             {
 
                 Password = "admin",
@@ -45,10 +50,10 @@ namespace CarMix.Client.Menus
                         MenuInicio.Menu();
                         break;
                     case "1":
-                        Viaje[] viajes = service.Viajes(securityViaje);
+                        CarMix.Client.ViajeHttps.Viaje[] viajes = service.Viajes(securityViaje);
                         Console.WriteLine("Viajes:");
                         Console.WriteLine("ID-Origen-Destino-Precio-Plazas-Descripción-Lista de spotify");
-                        foreach (Viaje v in viajes)
+                        foreach (CarMix.Client.ViajeHttps.Viaje v in viajes)
                         {
                             Console.WriteLine(v.Id + " " + v.Origen + " " + v.Destino + " " +v.Precio + " " +v.Plazas + " " +v.Descripcion+" "+v.Lista);
                         }
@@ -58,7 +63,7 @@ namespace CarMix.Client.Menus
                         Console.WriteLine("Introduzca el identificador del viaje (puede verlo en la lista de viajes)");
                         int idViaje = int.Parse(Console.ReadLine());
                         Console.WriteLine("");
-                        Viaje viaje = service.FindViaje(securityViaje, idViaje);
+                        CarMix.Client.ViajeHttps.Viaje viaje = service.FindViaje(securityViaje, idViaje);
                         Console.WriteLine("Viaje:");
                         Console.WriteLine("ID-Origen-Destino-Precio-Plazas-Descripción-Lista de spotify");
                         Console.WriteLine(viaje.Id + " " + viaje.Origen + " " + viaje.Destino + " " + viaje.Precio + " " + viaje.Plazas + " " + viaje.Descripcion);
@@ -67,7 +72,7 @@ namespace CarMix.Client.Menus
                         Console.WriteLine(viaje.Creador.Name);
                         Console.WriteLine("");
                         Console.WriteLine("Invitados:");
-                        foreach (User u in viaje.Invitados)
+                        foreach (CarMix.Client.ViajeHttps.User u in viaje.Invitados)
                             Console.WriteLine(u.Name);
                         Menu();
                         break;
